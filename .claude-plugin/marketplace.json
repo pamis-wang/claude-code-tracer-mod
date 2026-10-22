@@ -1,0 +1,5 @@
+{
+  "name": "tracer-local",
+  "owner": { "name": "pamis" },
+  "plugins": [{ "name": "tracer", "source": "./" }]
+}

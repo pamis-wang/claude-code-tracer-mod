@@ -1,0 +1,16 @@
+{
+  "name": "tracer",
+  "version": "0.1.0",
+  "description": "Tracer pane for Claude Code: per-turn tokens, cache and cost, subagent breakdown, context and quota, cache TTL countdown, system prompt versions.",
+  "license": "MIT",
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "cacheTtlMinutes": {
+      "type": "string",
+      "title": "Prompt cache TTL (minutes)",
+      "description": "How long the main conversation's prompt cache lives: 60 on a Max plan, 5 on Pro or an API key.",
+      "options": ["60", "5"],
+      "default": "60"
+    }
+  }
+}
