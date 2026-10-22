@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>tracer</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    try {
+      const saved = localStorage.getItem('tracer-theme')
+      const dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+      if (saved === 'light' || (!saved && !dark)) document.documentElement.dataset.theme = 'light'
+      if (localStorage.getItem('tracer-sidebar') === 'collapsed') document.documentElement.classList.add('pre-collapsed')
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <header id="topbar">
+    <div class="top-row1">
+      <div class="brand"><span class="pulse"></span>tracer</div>
+      <nav class="tabs">
+        <button class="tab active" data-page="dashboard">Dashboard</button>
+        <button class="tab" data-page="usage">Usage</button>
+        <button class="tab" data-page="sysprompt">System Prompt<span class="badge-dot" id="sp-dot" hidden></span></button>
+      </nav>
+      <div class="status-cluster" id="status-cluster"></div>
+      <button class="icon-btn" id="theme-btn" title="切換主題"></button>
+      <button class="icon-btn" id="help-btn" title="快捷鍵 (?)">?</button>
+    </div>
+    <div class="top-row2">
+      <div class="crumbs" id="crumbs"></div>
+      <button class="icon-btn" id="link-btn" title="複製這個畫面的連結">🔗</button>
+      <div class="quota" id="quota"></div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="col col-projects" id="col-projects"></section>
+    <section class="col col-sessions" id="col-sessions"></section>
+    <section class="col col-timeline" id="col-timeline"></section>
+  </main>
+
+  <section class="page" id="page-usage"></section>
+  <section class="page" id="page-sysprompt"></section>
+
+  <footer id="cmd-bar"></footer>
+
+  <div id="tip"></div>
+  <div id="toasts"></div>
+  <div id="overlay"><div class="overlay-card" id="overlay-card"></div></div>
+
+  <script src="app.js"></script>
+  <script src="timeline.js"></script>
+  <script src="pages.js"></script>
+  <script>TR.boot()</script>
+</body>
+</html>
