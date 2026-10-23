@@ -7,6 +7,32 @@ Claude Code 的追蹤 mod（外掛名稱 `tracer`，指令 `/tracer`）：不用
 - **終端機面板**（`/tracer`）：聊天旁的側邊面板，加上輸入框下方的狀態列，隨時看一眼
 - **網頁儀表板**（`/tracer web`）：在瀏覽器開啟，看完整細節
 
+## 安裝
+
+在 Claude Code 的輸入框：
+
+```
+/plugin install tracer --marketplace pamis-wang/claude-code-tracer-mod
+```
+
+或在終端機：
+
+```
+claude plugin install tracer --marketplace pamis-wang/claude-code-tracer-mod
+```
+
+第一次會問要不要加入 marketplace（`github:pamis-wang/claude-code-tracer-mod`），按 `y`；範圍選 user（預設），之後開的終端機 session 與 VS Code 都會載入。安裝時可以設定 `cacheTtlMinutes`：Max 方案選 60，Pro 或 API key 選 5。
+
+**桌面版 app 不適用。** 桌面版的 Cowork session 跑在 Anthropic 的雲端容器裡，mod 也在容器裡載入，所以資料寫到容器的 `~/.claude/tracer/data/`，不在你的電腦上。`/tracer web` 也開不了：它在容器裡開 `file://`，你的瀏覽器看不到那個檔案。容器在 session 結束後會被回收，資料跟著消失。請在終端機或 VS Code 使用。
+
+## 使用
+
+- `/tracer`：開關面板（`/tracer open`、`/tracer close`）
+- `/tracer web`：在瀏覽器開啟網頁儀表板
+- `/tracer stats [on|off]`：統計列
+- `/tracer intercept [all|tools|off]`：攔截請求或工具呼叫
+- `/config`：`cacheTtlMinutes` 選 60（Max 方案）或 5（Pro／API key）
+
 ## 網頁儀表板
 
 mod 把每個 session 的資料寫到 `~/.claude/tracer/data/`，儀表板是同一個資料夾裡的 `index.html`，直接從本機檔案開啟，每 2 秒自動更新。不跑 server，也不經過 proxy。
@@ -74,32 +100,6 @@ node tools/import.mjs
 ## System prompt 怎麼取得
 
 Claude Code 內建的安全外掛會讓 `prompt.compose` 事件跳過使用者的 mod，所以 tracer 在每個主對話 turn 開始時主動呼叫 `$.prompt.compose()`，取得引擎此刻會送出的 system prompt，內容有變才記成新版本。
-
-## 安裝
-
-在 Claude Code 的輸入框：
-
-```
-/plugin install tracer --marketplace pamis-wang/claude-code-tracer-mod
-```
-
-或在終端機：
-
-```
-claude plugin install tracer --marketplace pamis-wang/claude-code-tracer-mod
-```
-
-第一次會問要不要加入 marketplace（`github:pamis-wang/claude-code-tracer-mod`），按 `y`；範圍選 user（預設），之後開的終端機 session 與 VS Code 都會載入。安裝時可以設定 `cacheTtlMinutes`：Max 方案選 60，Pro 或 API key 選 5。
-
-桌面版 app 不能用 `/plugin`：點輸入框旁的 **+** → **Plugins** → **Add marketplace**，輸入 `pamis-wang/claude-code-tracer-mod`，再 **Add plugin**。
-
-## 使用
-
-- `/tracer`：開關面板（`/tracer open`、`/tracer close`）
-- `/tracer web`：在瀏覽器開啟網頁儀表板
-- `/tracer stats [on|off]`：統計列
-- `/tracer intercept [all|tools|off]`：攔截請求或工具呼叫
-- `/config`：`cacheTtlMinutes` 選 60（Max 方案）或 5（Pro／API key）
 
 ## 修改
 
